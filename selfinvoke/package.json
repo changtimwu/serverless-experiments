@@ -1,0 +1,11 @@
+{
+  "name": "my-selfinvoke",
+  "version": "0.1.0",
+  "main": "handler.js",
+  "scripts": {
+    "deploy": "npx serverless deploy"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.247.1"
+  }
+}
