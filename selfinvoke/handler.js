@@ -55,14 +55,13 @@ let incTick = async (argstr) => {
 }
 
 module.exports.incTick = incTick
-module.exports.helloWorld = (event, context, callback) => {
+module.exports.helloWorld = async (event, context, callback) => {
   counter+=1
   console.log("event=",event)
   console.log("callbackWaitsForEmptyEventLoop=", context.callbackWaitsForEmptyEventLoop)
   const params= event.queryStringParameters
-  if ( params && params.invtype=='starttick'){
-    console.log('start ticking')
-    incTick( JSON.stringify({cmd:'resettick'}))
+  if ( params && params.cmd=='resettick'){
+    await invokeFunc('incTick', JSON.stringify({ cmd:'resettick'}))
   }
   const response = {
     statusCode: 200,
@@ -70,7 +69,7 @@ module.exports.helloWorld = (event, context, callback) => {
       'Access-Control-Allow-Origin': '*', // Required for CORS support to work
     },
     body: JSON.stringify({
-      message: `Serverless v1.0! counter=${counter} tick=${tick}`,
+      message: `Serverless! counter=${counter} tick=${tick}`,
       input: event,
     }),
   };
