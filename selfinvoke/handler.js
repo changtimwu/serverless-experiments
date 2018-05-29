@@ -61,7 +61,8 @@ module.exports.helloWorld = async (event, context, callback) => {
   console.log("callbackWaitsForEmptyEventLoop=", context.callbackWaitsForEmptyEventLoop)
   const params= event.queryStringParameters
   if ( params && params.cmd=='resettick'){
-    await invokeFunc('incTick', JSON.stringify({ cmd:'resettick'}))
+    // TODO: this just work once
+    await invokeFunc('incTick', { cmd:'resettick'})
   }
   const response = {
     statusCode: 200,
